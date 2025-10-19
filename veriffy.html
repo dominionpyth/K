@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kodrael Cuts - Premium Barbershop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #d4af37;
+            --text-color: #333;
+            --light-text: #fff;
+        }
+
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-text);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://picsum.photos/seed/barbershop/1920/1080.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--light-text);
+            padding: 0 5%;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e6c35a;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: #666;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 1rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 5%;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .ceo-profile {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+        }
+
+        .ceo-profile h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+            width: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        /* Operating Hours Highlight */
+        .hours-highlight {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .hours-highlight h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 2rem 5%;
+            text-align: center;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--light-text);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transform: translateY(-150%);
+                transition: transform 0.5s;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <a href="#home" class="logo">
+                <i class="fas fa-cut"></i> Kodrael Cuts
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Kodrael Cuts</h1>
+        <p>Where Style Meets Precision - Experience the Art of Premium Grooming</p>
+        <a href="#gallery" class="btn">View Our Work</a>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <h2 class="section-title">Our Masterpieces</h2>
+        <p class="section-subtitle">Explore our collection of premium haircuts and styles, crafted with precision and passion.</p>
+        <div class="gallery-grid">
+            <!-- 20 haircut images -->
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut1/400/300.jpg" alt="Modern Fade">
+                <div class="gallery-overlay">
+                    <h3>Modern Fade</h3>
+                    <p>Sharp and clean fade with textured top</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut2/400/300.jpg" alt="Classic Pompadour">
+                <div class="gallery-overlay">
+                    <h3>Classic Pompadour</h3>
+                    <p>Timeless style with modern twist</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut3/400/300.jpg" alt="Undercut Design">
+                <div class="gallery-overlay">
+                    <h3>Undercut Design</h3>
+                    <p>Bold undercut with artistic design</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut4/400/300.jpg" alt="Textured Crop">
+                <div class="gallery-overlay">
+                    <h3>Textured Crop</h3>
+                    <p>Short and stylish with texture</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut5/400/300.jpg" alt="Beard Trim">
+                <div class="gallery-overlay">
+                    <h3>Beard Trim</h3>
+                    <p>Precision beard shaping and styling</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut6/400/300.jpg" alt="Slick Back">
+                <div class="gallery-overlay">
+                    <h3>Slick Back</h3>
+                    <p>Sleek and sophisticated style</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut7/400/300.jpg" alt="Buzz Cut">
+                <div class="gallery-overlay">
+                    <h3>Buzz Cut</h3>
+                    <p>Minimalist and maintenance-free</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut8/400/300.jpg" alt="Side Part">
+                <div class="gallery-overlay">
+                    <h3>Side Part</h3>
+                    <p>Classic side part with modern fade</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut9/400/300.jpg" alt="Curly Top">
+                <div class="gallery-overlay">
+                    <h3>Curly Top</h3>
+                    <p>Embracing natural curls with style</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut10/400/300.jpg" alt="Mohawk">
+                <div class="gallery-overlay">
+                    <h3>Mohawk</h3>
+                    <p>Edgy and bold statement style</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut11/400/300.jpg" alt="Quiff">
+                <div class="gallery-overlay">
+                    <h3>Quiff</h3>
+                    <p>Voluminous front with clean sides</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut12/400/300.jpg" alt="Flat Top">
+                <div class="gallery-overlay">
+                    <h3>Flat Top</h3>
+                    <p>Retro style with modern precision</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut13/400/300.jpg" alt="Dreadlocks">
+                <div class="gallery-overlay">
+                    <h3>Dreadlocks</h3>
+                    <p>Professional dreadlock styling</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut14/400/300.jpg" alt="Braids">
+                <div class="gallery-overlay">
+                    <h3>Braids</h3>
+                    <p>Intricate braiding designs</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut15/400/300.jpg" alt="Long Hair">
+                <div class="gallery-overlay">
+                    <h3>Long Hair</h3>
+                    <p>Styling and maintenance for long hair</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut16/400/300.jpg" alt="Faux Hawk">
+                <div class="gallery-overlay">
+                    <h3>Faux Hawk</h3>
+                    <p>Subtle version of the mohawk</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut17/400/300.jpg" alt="Crew Cut">
+                <div class="gallery-overlay">
+                    <h3>Crew Cut</h3>
+                    <p>Short and professional style</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut18/400/300.jpg" alt="Bowl Cut">
+                <div class="gallery-overlay">
+                    <h3>Bowl Cut</h3>
+                    <p>Retro style with modern twist</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut19/400/300.jpg" alt="Shaved Design">
+                <div class="gallery-overlay">
+                    <h3>Shaved Design</h3>
+                    <p>Artistic designs on shaved sides</p>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <img src="https://picsum.photos/seed/haircut20/400/300.jpg" alt="Mullet">
+                <div class="gallery-overlay">
+                    <h3>Mullet</h3>
+                    <p>Business in front, party in back</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-container">
+            <h2 class="section-title">About Kodrael Cuts</h2>
+            <p class="section-subtitle">Founded with a passion for precision and style, Kodrael Cuts has been redefining the barbershop experience since 2015.</p>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p>At Kodrael Cuts, we believe that a great haircut is more than just a service—it's an experience. Our skilled barbers combine traditional techniques with modern trends to create styles that not only look great but also reflect your personality.</p>
+                    <p>From classic cuts to contemporary styles, we offer a comprehensive range of grooming services tailored to meet your unique needs. Our commitment to excellence extends beyond the chair, creating an atmosphere where you can relax, recharge, and leave feeling your absolute best.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://picsum.photos/seed/barbershopinterior/500/400.jpg" alt="Kodrael Cuts Interior">
+                </div>
+            </div>
+            
+            <div class="ceo-profile">
+                <h3>Meet Our CEO - Israel Oko</h3>
+                <p>Israel Oko is the visionary behind Kodrael Cuts, bringing over 15 years of experience in the grooming industry. With a background in both traditional barbering and modern styling techniques, Israel has cultivated a team of talented professionals who share his commitment to excellence.</p>
+                <p>"Every haircut tells a story," Israel says. "Our job is to help our clients tell their best story through style. We're not just cutting hair; we're crafting confidence."</p>
+                <p>Under Israel's leadership, Kodrael Cuts has grown from a single-chair operation to a premier destination for quality grooming services, earning recognition for both technical skill and exceptional customer service.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Ready for your next haircut? Contact us to book an appointment or inquire about our services.</p>
+        
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>Address</h3>
+                        <p>123 Style Street, Fashion District, NY 10001</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>Phone</h3>
+                        <p>(555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>info@kodraelcuts.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>Hours</h3>
+                        <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
+                        <p>Saturday: 9:00 AM - 6:00 PM</p>
+                        <p>Sunday: 10:00 AM - 4:00 PM</p>
+                    </div>
+                </div>
+                
+                <div class="hours-highlight">
+                    <h3>Open Every Day!</h3>
+                    <p>Walk-ins welcome, appointments preferred</p>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p>&copy; 2023 Kodrael Cuts. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would normally send the data to a server
+            // For this example, we'll just show a success message
+            alert(`Thank you, ${name}! Your message has been received. We'll contact you at ${email} soon.`);
+            
+            // Reset the form
+            this.reset();
+        });
+        
+        // Add animation to gallery items when they come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.style.opacity = 0;
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
